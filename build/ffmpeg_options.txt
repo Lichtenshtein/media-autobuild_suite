@@ -125,6 +125,7 @@
 
 # Test
 #--enable-whisper
+--enable-libmpeghdec
 --enable-swscale
 --enable-nonfree
 --enable-pthreads

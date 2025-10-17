@@ -30,6 +30,7 @@ while true; do
     --other265=* ) other265=${1#*=} && shift ;;
     --flac=* ) flac=${1#*=} && shift ;;
     --fdkaac=* ) fdkaac=${1#*=} && shift ;;
+    --mpeghdec=* ) mpeghdec=${1#*=} && shift ;;
     --mediainfo=* ) mediainfo=${1#*=} && shift ;;
     --sox=* ) sox=${1#*=} && shift ;;
     --ffmpeg=* ) ffmpeg=${1#*=} && shift ;;
@@ -919,6 +920,16 @@ if { [[ $ffmpeg != no ]] && enabled libfdk-aac; } || [[ $fdkaac = y ]]; then
         CFLAGS+=" $($PKG_CONFIG --cflags fdk-aac)" \
         LDFLAGS+=" $($PKG_CONFIG --cflags --libs fdk-aac)" \
             do_separate_confmakeinstall audio
+        do_checkIfExist
+    fi
+fi
+
+if { [[ $ffmpeg != no ]] && enabled libmpeghdec; } || [[ $mpeghdec = y ]]; then
+    _check=(libmpeghdec.a mpeghdec.pc)
+    if do_vcs "$SOURCE_REPO_MPEGHDEC"; then
+        do_uninstall include/mpeghdec "${_check[@]}"
+	do_patch "$LOCALBUILDDIR/local_patches/mpeghdec_inlines-and-declspec-fixes.patch"
+	do_cmakeinstall -Dmpeghdec_BUILD_{DOC,BINARIES}=false -DCMAKE_INSTALL_DATAROOTDIR="$LOCALDESTDIR/lib"
         do_checkIfExist
     fi
 fi

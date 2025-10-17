@@ -126,7 +126,7 @@ libcdio libflite libfribidi libgme libilbc libsvthevc ^
 libsvtvp9 libkvazaar libmodplug librist librtmp librubberband #libssh ^
 libtesseract libxavs libzmq libzvbi openal libcodec2 ladspa #vapoursynth #liblensfun ^
 libglslang vulkan libdavs2 libxavs2 libuavs3d libplacebo libjxl libvvenc libvvdec liblc3 audiotoolbox ^
-libsvtjpegxs libxeve libxevd
+libsvtjpegxs libxeve libxevd libmpeghdec
 
 :: options also available with the suite that add shared dependencies
 set ffmpeg_options_full_shared=opencl opengl cuda-nvcc libopenh264
@@ -143,7 +143,7 @@ set mpv_options_basic="-Dlua=luajit"
 set mpv_options_full=dvdnav cdda #egl-angle #html-build ^
 #pdf-build openal sdl2-gamepad sdl2-audio sdl2-video
 
-set iniOptions=arch license2 vpx2 x2643 x2652 other265 flac fdkaac mediainfo ^
+set iniOptions=arch license2 vpx2 x2643 x2652 other265 flac fdkaac mpeghdec mediainfo ^
 soxB ffmpegB2 ffmpegUpdate ffmpegChoice ffmpegKeepLegacyOpts mp4box rtmpdump mplayer2 mpv ^
 cores deleteSource strip pack logging bmx standalone updateSuite av1an aom faac exhale ffmbc ^
 curl cyanrip2 rav1e ripgrep dav1d libavif libheif vvc uvg266 jq dssim gifski avs2 dovitool ^
@@ -745,6 +745,26 @@ if %buildfdkaac%==1 set "fdkaac=y"
 if %buildfdkaac%==2 set "fdkaac=n"
 if %buildfdkaac% GTR 2 GOTO fdkaac
 if %deleteINI%==1 echo.fdkaac=^%buildfdkaac%>>%ini%
+
+:mpeghdec
+if [0]==[%mpeghdecINI%] (
+    echo -------------------------------------------------------------------------------
+    echo -------------------------------------------------------------------------------
+    echo.
+    echo. Build mpeghdec library? [MPEG-H codec]
+    echo. 1 = Yes
+    echo. 2 = No
+    echo.
+    echo -------------------------------------------------------------------------------
+    echo -------------------------------------------------------------------------------
+    set /P buildmpeghdec="Build mpeghdec: "
+) else set buildmpeghdec=%mpeghdecINI%
+
+if "%buildmpeghdec%"=="" GOTO mpeghdec
+if %buildmpeghdec%==1 set "mpeghdec=y"
+if %buildmpeghdec%==2 set "mpeghdec=n"
+if %buildmpeghdec% GTR 2 GOTO mpeghdec
+if %deleteINI%==1 echo.mpeghdec=^%buildmpeghdec%>>%ini%
 
 :faac
 if [0]==[%faacINI%] (
@@ -2061,7 +2081,7 @@ if exist %build%\fail_comp del %build%\compilation_failed
 endlocal & (
 set compileArgs=--cpuCount=%cpuCount% --msysEnv=%msysEnv% ^
 --deleteSource=%deleteSource% --mp4box=%mp4box% --vpx=%vpx2% --x264=%x2643% --x265=%x2652% ^
---other265=%other265% --flac=%flac% --fdkaac=%fdkaac% --mediainfo=%mediainfo% --sox=%sox% ^
+--other265=%other265% --flac=%flac% --fdkaac=%fdkaac% --mpeghdec=%mpeghdec% --mediainfo=%mediainfo% --sox=%sox% ^
 --ffmpeg=%ffmpeg% --ffmpegUpdate=%ffmpegUpdate% --ffmpegChoice=%ffmpegChoice% --ffmpegKeepLegacyOpts=%ffmpegKeepLegacyOpts% --mplayer=%mplayer% ^
 --mpv=%mpv% --license=%license2%  --stripping=%stripFile% --packing=%packFile% --rtmpdump=%rtmpdump% ^
 --logging=%logging% --bmx=%bmx% --standalone=%standalone% --aom=%aom% --faac=%faac% --exhale=%exhale% ^
