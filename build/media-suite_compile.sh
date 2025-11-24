@@ -1009,6 +1009,7 @@ if [[ $standalone = y ]] && enabled libopus; then
     if do_vcs "$SOURCE_REPO_OPUSEXE"; then
         _check+=(bin-audio/opus{dec,info}.exe)
         do_uninstall "${_check[@]}"
+        sed -i 's/__opus_check_int/opus_check_int/' $LOCALDESTDIR/include/opus/opusenc.h
         do_autogen
         do_separate_confmakeinstall audio
         do_checkIfExist
