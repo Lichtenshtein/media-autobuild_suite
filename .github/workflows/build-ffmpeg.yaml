@@ -1,0 +1,84 @@
+name: test workflow 1
+
+on:
+  workflow_dispatch:
+
+concurrency: 
+  group: build-group-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-ffmpeg:
+    if: github.actor != 'dependabot[bot]'
+    
+    runs-on: windows-2019
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Restore build cache
+        uses: thedave42/cache-always@main
+        if: always()
+        with:
+          path: |
+            ./build/*-git
+            ./local64/*
+            !./local64/bin
+            !./local64/bin-audio
+            !./local64/bin-global
+            !./local64/bin-video
+          key: m-ab-s
+          restore-keys: |
+            m-ab-s
+
+      - name: Install nVidia CUDA toolkit
+        uses: Jimver/cuda-toolkit@6c431511cdbaef1174130412c0a245a6c205f883
+        with:
+          method: 'network'
+          cuda: '11.1.1'
+
+      - name: Remove CUDA Installer
+        run: |
+          rm -Force ./cuda*.exe
+          
+      - name: Create pre dirlist snapshot
+        if: always()
+        run: |
+          tree >./pre-dir-tree.txt
+          dir /S >./pre-dir-files.txt
+          dir /S d: >./pre-d-files.txt
+        shell: cmd
+
+      - name: Run build batchfile
+        run: |
+          ./media-autobuild_suite.bat
+
+      - name: Upload build artifacts on success
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: ffmpeg-bin
+          path: |
+            ./local64/bin
+            ./local64/bin-audio
+            ./local64/bin-global
+            ./local64/bin-video
+
+      - name: Create post dirlist snapshot
+        if: always()
+        run: |
+          tree >./post-dir-tree.txt
+          dir /S >./post-dir-files.txt
+        shell: cmd
+
+      - name: Upload dir list artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: dir-list
+          path: |
+            ./*-dir-tree.txt
+            ./*-dir-files.txt            
+            ./*-d-files.txt
+

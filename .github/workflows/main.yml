@@ -1,0 +1,73 @@
+name: test workflow 4
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # 1. Checkout into a temporary folder
+      - uses: actions/checkout@v4
+        with:
+          path: tempRepo
+
+      # 2. Move the repository to D:\mab
+      - name: Move repository to D:\mab
+        shell: powershell
+        run: |
+          # Remove D:\mab if it already exists
+          if (Test-Path "D:\mab") {
+            Remove-Item -Recurse -Force "D:\mab"
+          }
+          # Move the checked out repository from the workspace to D:\mab
+          Move-Item -Path "${{ github.workspace }}\tempRepo" -Destination "D:\mab"
+
+      # 3. (Optional) Set an environment variable for the new workspace
+      - name: Set NEW_WORKSPACE environment variable
+        shell: powershell
+        run: |
+          echo "NEW_WORKSPACE=D:\mab" >> $env:GITHUB_ENV
+
+      # 4. Install the PSScriptAnalyzer module
+      - name: Install PSScriptAnalyzer module
+        shell: powershell
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSScriptAnalyzer -ErrorAction Stop
+
+      # 5. Get list of rules
+      - name: Get list of rules
+        shell: powershell
+        run: |
+          Get-ScriptAnalyzerRule
+
+      # 6. Set up Python
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      # 7. Restore cache for build and msys64 directories (using absolute paths)
+      - name: Restore cache (build & msys64)
+        uses: actions/cache@v4
+        with:
+          path: |
+            D:\mab\build
+            D:\mab\msys64
+          key: ${{ runner.os }}-mab-${{ hashFiles('D:/mab/media-autobuild_suite.bat') }}
+          restore-keys: |
+            ${{ runner.os }}-mab-
+
+      # 8. Run the media-autobuild_suite.bat script from D:\mab
+      - name: Run media-autobuild_suite.bat
+        shell: cmd
+        run: |
+          cd /d D:\mab
+          .\media-autobuild_suite.bat
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_REPO }}

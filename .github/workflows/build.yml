@@ -1,0 +1,38 @@
+name: test workflow 2
+
+on:
+  workflow_dispatch:
+
+jobs:
+    build:
+
+        runs-on: windows-latest
+
+        steps:
+            -   name: set current date
+                id: set_date
+                run: |
+                    date=$(date +'%Y-%m')
+                    echo "date=$date" >> $GITHUB_OUTPUT
+                shell: bash
+            -   name: cache build
+                uses: actions/cache@v4
+                with:
+                    path: D:/a/ma/ma/build
+                    key: ma-build-${{ steps.set_date.outputs.date }}
+                    restore-keys: ma-build-
+            -   uses: actions/checkout@v4
+            -   name: build
+                shell: cmd
+                run: media-autobuild_suite.bat
+            -   name: copy
+                shell: cmd
+                run: |
+                    cmake -E copy bin-video\ffmpeg.exe dist\ffmpeg.exe
+                    cmake -E xcopy include dist\include
+                    cmake -E xcopy lib dist\lib
+            -   name: upload
+                uses: actions/upload-artifact@v4
+                with:
+                    name: FFmpeg_static_lib
+                    path: dist
