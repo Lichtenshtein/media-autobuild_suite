@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Restore build cache
         uses: thedave42/cache-always@main
@@ -55,7 +55,7 @@ jobs:
           ./media-autobuild_suite.bat
 
       - name: Upload build artifacts on success
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: success()
         with:
           name: ffmpeg-bin
@@ -73,12 +73,12 @@ jobs:
         shell: cmd
 
       - name: Upload dir list artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: dir-list
           path: |
             ./*-dir-tree.txt
-            ./*-dir-files.txt            
+            ./*-dir-files.txt
             ./*-d-files.txt
 
