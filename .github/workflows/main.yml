@@ -71,3 +71,31 @@ jobs:
           .\media-autobuild_suite.bat
         env:
           GH_TOKEN: ${{ secrets.TOKEN_REPO }}
+
+      - name: Upload build artifacts on success
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: ffmpeg-bin
+          path: |
+            ./local64/bin
+            ./local64/bin-audio
+            ./local64/bin-global
+            ./local64/bin-video
+
+      - name: Create post dirlist snapshot
+        if: always()
+        run: |
+          tree >./post-dir-tree.txt
+          dir /S >./post-dir-files.txt
+        shell: cmd
+
+      - name: Upload dir list artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dir-list
+          path: |
+            ./*-dir-tree.txt
+            ./*-dir-files.txt
+            ./*-d-files.txt
