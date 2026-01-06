@@ -88,6 +88,8 @@ while true; do
     esac
 done
 
+export GIT_SSL_NO_VERIFY=true
+
 [[ $ccache != y ]] && export CCACHE_DISABLE=1
 
 # shellcheck source=media-suite_deps.sh

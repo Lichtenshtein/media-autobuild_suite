@@ -15,8 +15,8 @@
 --enable-nvenc
 --enable-schannel
 --enable-zlib
-#--enable-sdl2
---disable-sdl2
+--enable-sdl2
+#--disable-sdl2
 --enable-ffnvcodec
 --enable-nvdec
 --enable-cuda-llvm
@@ -63,8 +63,8 @@
 #--enable-libtls
 --disable-libtls
 --enable-avisynth
-#--enable-mbedtls
---disable-mbedtls
+--enable-mbedtls
+#--disable-mbedtls
 --enable-libxvid
 --enable-libopenmpt
 --enable-version3
@@ -76,61 +76,61 @@
 #--disable-libsvtav1
 
 # Full
-# --enable-chromaprint
+--enable-chromaprint
 #--enable-decklink
 # --disable-decklink
-# --enable-frei0r
-# --enable-libaribb24
-# --enable-libbs2b
-# --enable-libcaca
-# --enable-libcdio
-# --enable-libflite
-# --enable-libfribidi
+--enable-frei0r
+--enable-libaribb24
+--enable-libbs2b
+--enable-libcaca
+--enable-libcdio
+--enable-libflite
+--enable-libfribidi
 # --disable-libgme
-#--enable-libgme
-# --enable-libilbc
-# --enable-libsvthevc
-#--enable-libsvtvp9
-#--enable-libkvazaar
+--enable-libgme
+--enable-libilbc
+--enable-libsvthevc
+--enable-libsvtvp9
+--enable-libkvazaar
 # --disable-libkvazaar
-# --enable-libmodplug
-# --enable-librist
-# --enable-librtmp
-# --enable-librubberband
+--enable-libmodplug
+--enable-librist
+--enable-librtmp
+--enable-librubberband
 #--enable-libssh
-# --disable-libssh
-#--enable-libtesseract
+--disable-libssh
+--enable-libtesseract
 # --disable-libtesseract
-#--enable-libxavs
+--enable-libxavs
 # --disable-libxavs
-# --enable-libzmq
-# --enable-libzvbi
-# --enable-openal
-# --enable-libcodec2
-# --enable-ladspa
-# --enable-vapoursynth
-#--enable-liblensfun
-# --enable-libglslang
-# --enable-vulkan
-#--enable-libdavs2
+--enable-libzmq
+--enable-libzvbi
+--enable-openal
+--enable-libcodec2
+--enable-ladspa
+--enable-vapoursynth
+--enable-liblensfun
+--enable-libglslang
+--enable-vulkan
+--enable-libdavs2
 # --disable-libdavs2
-#--enable-libxavs2
+--enable-libxavs2
 # --disable-libxavs2
-#--enable-libuavs3d
+--enable-libuavs3d
 # --disable-libuavs3d
-# --enable-libplacebo
-# --enable-libjxl
-# --enable-libvvenc
-# --enable-libvvdec
-# --enable-liblc3
-# --enable-libsvtjpegxs
+--enable-libplacebo
+--enable-libjxl
+--enable-libvvenc
+--enable-libvvdec
+--enable-liblc3
+--enable-libsvtjpegxs
 
 # Full plus options that add shared dependencies
-# --enable-opencl
-# --enable-opengl
-# --enable-cuda-nvcc
-# --enable-libnpp
-#--enable-libopenh264
+--enable-opencl
+--enable-opengl
+--enable-cuda-nvcc
+--enable-libnpp
+--enable-libopenh264
 # --disable-libopenh264
 
 --enable-nonfree
@@ -138,5 +138,5 @@
 --enable-swscale
 
 # Core Audio Toolbox
-# --enable-audiotoolbox
+--enable-audiotoolbox
 
