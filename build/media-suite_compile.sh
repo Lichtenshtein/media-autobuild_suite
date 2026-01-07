@@ -1055,6 +1055,7 @@ if [[ $standalone = y ]] && enabled libmp3lame; then
         do_patch "$_mingw_patches_lame/0007-revert-posix-code.patch"
         do_patch "$_mingw_patches_lame/0008-skip-termcap.patch"
         do_patch "https://raw.githubusercontent.com/m-ab-s/mabs-patches/master/lame/0001-libmp3lame-vector-Makefile.am-Add-msse-to-fix-i686-c.patch"
+        do_patch "https://tmkk.undo.jp/lame/lame-3.100-sse-20171014.diff"
         do_autoreconf
         do_separate_conf --enable-nasm
         do_make
