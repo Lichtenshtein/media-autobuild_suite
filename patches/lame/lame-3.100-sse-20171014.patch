@@ -4,8 +4,8 @@ Date: Sun, 4 Jan 2026 20:25:16 +0300
 Subject: [PATCH] SIMD Optimized LAME Encoder
 
 ---
---- libmp3lame/fft.c.orig	2017-09-07 04:33:36.000000000 +0900
-+++ libmp3lame/fft.c	2017-10-14 12:03:44.000000000 +0900
+--- a/a/libmp3lame/fft.c.orig	2017-09-07 04:33:36.000000000 +0900
++++ b/libmp3lame/fft.c	2017-10-14 12:03:44.000000000 +0900
 @@ -331,7 +331,7 @@ init_fft(lame_internal_flags * const gfc
      }
  #else
@@ -15,8 +15,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
      gfc->fft_fht = fht_SSE2;
  #endif
  #endif
---- libmp3lame/gain_analysis.c.orig	2017-10-11 04:08:39.000000000 +0900
-+++ libmp3lame/gain_analysis.c	2017-10-14 12:06:19.000000000 +0900
+--- a/libmp3lame/gain_analysis.c.orig	2017-10-11 04:08:39.000000000 +0900
++++ b/libmp3lame/gain_analysis.c	2017-10-14 12:06:19.000000000 +0900
 @@ -95,6 +95,9 @@
  #include <stdio.h>
  #include <stdlib.h>
@@ -242,8 +242,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
  
  
  
---- libmp3lame/l3side.h.orig	2012-02-07 22:36:35.000000000 +0900
-+++ libmp3lame/l3side.h	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/l3side.h.orig	2012-02-07 22:36:35.000000000 +0900
++++ b/libmp3lame/l3side.h	2017-10-14 12:03:44.000000000 +0900
 @@ -46,7 +46,7 @@ typedef struct {
  
  typedef struct {
@@ -262,8 +262,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
      int     main_data_begin;
      int     private_bits;
      int     resvDrain_pre;
---- libmp3lame/lame.c.orig	2017-10-11 04:08:39.000000000 +0900
-+++ libmp3lame/lame.c	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/lame.c.orig	2017-10-11 04:08:39.000000000 +0900
++++ b/libmp3lame/lame.c	2017-10-14 12:03:44.000000000 +0900
 @@ -2364,7 +2364,7 @@ lame_init_internal_flags(lame_internal_f
      gfc->ov_rpg.noclipGainChange = 0;
      gfc->ov_rpg.noclipScale = -1.0;
@@ -282,8 +282,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
  
      if (lame_init_internal_flags(gfp->internal_flags) < 0) {
          freegfc(gfp->internal_flags);
---- libmp3lame/newmdct.c.orig	2011-05-08 01:05:17.000000000 +0900
-+++ libmp3lame/newmdct.c	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/newmdct.c.orig	2011-05-08 01:05:17.000000000 +0900
++++ b/libmp3lame/newmdct.c	2017-10-14 12:03:44.000000000 +0900
 @@ -36,10 +36,13 @@
  #include "util.h"
  #include "newmdct.h"
@@ -549,8 +549,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
      {
          FLOAT   s, t, u, v;
          t = x1[-16] * wp[-10];
---- libmp3lame/psymodel.c.orig	2017-09-07 04:38:23.000000000 +0900
-+++ libmp3lame/psymodel.c	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/psymodel.c.orig	2017-09-07 04:38:23.000000000 +0900
++++ b/libmp3lame/psymodel.c	2017-10-14 12:03:44.000000000 +0900
 @@ -155,6 +155,9 @@ blocktype_d[2]        block type to use 
  #include "fft.h"
  #include "lame-analysis.h"
@@ -974,8 +974,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
      FLOAT   eb[4][CBANDS], thr[4][CBANDS];
  
      FLOAT   sub_short_factor[4][3];
---- libmp3lame/quantize.c.orig	2017-08-15 22:40:45.000000000 +0900
-+++ libmp3lame/quantize.c	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/quantize.c.orig	2017-08-15 22:40:45.000000000 +0900
++++ b/libmp3lame/quantize.c	2017-10-14 12:03:44.000000000 +0900
 @@ -99,7 +99,7 @@ init_xrpow_core_init(lame_internal_flags
          gfc->init_xrpow_core = init_xrpow_core_sse;
  #endif
@@ -1012,8 +1012,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
      int     targ_bits[2];
      int     mean_bits, max_bits;
      int     gr, ch;
---- libmp3lame/quantize_pvt.c.orig	2017-09-07 04:33:36.000000000 +0900
-+++ libmp3lame/quantize_pvt.c	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/quantize_pvt.c.orig	2017-09-07 04:33:36.000000000 +0900
++++ b/libmp3lame/quantize_pvt.c	2017-10-14 12:03:44.000000000 +0900
 @@ -27,6 +27,7 @@
  # include <config.h>
  #endif
@@ -1207,8 +1207,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
      }
  
      *startline = j;
---- libmp3lame/takehiro.c.orig	2017-09-07 04:33:36.000000000 +0900
-+++ libmp3lame/takehiro.c	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/takehiro.c.orig	2017-09-07 04:33:36.000000000 +0900
++++ b/libmp3lame/takehiro.c	2017-10-14 12:03:44.000000000 +0900
 @@ -26,6 +26,7 @@
  # include <config.h>
  #endif
@@ -1645,8 +1645,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
              }
          }
      }
---- libmp3lame/util.c.orig	2017-09-07 04:33:36.000000000 +0900
-+++ libmp3lame/util.c	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/util.c.orig	2017-09-07 04:33:36.000000000 +0900
++++ b/libmp3lame/util.c	2017-10-14 12:03:44.000000000 +0900
 @@ -140,7 +140,7 @@ freegfc(lame_internal_flags * const gfc)
          gfc->VBR_seek_table.size = 0;
      }
@@ -1665,8 +1665,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
  }
  
  void
---- libmp3lame/util.h.orig	2017-09-07 04:33:36.000000000 +0900
-+++ libmp3lame/util.h	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/util.h.orig	2017-09-07 04:33:36.000000000 +0900
++++ b/libmp3lame/util.h	2017-10-14 12:03:44.000000000 +0900
 @@ -116,6 +116,36 @@ extern  "C" {
      typedef struct plotting_data plotting_data;
  #endif
@@ -1722,8 +1722,8 @@ Subject: [PATCH] SIMD Optimized LAME Encoder
  
          scalefac_struct scalefac_band;
  
---- libmp3lame/vbrquantize.c.orig	2012-02-07 22:36:35.000000000 +0900
-+++ libmp3lame/vbrquantize.c	2017-10-14 12:03:44.000000000 +0900
+--- a/libmp3lame/vbrquantize.c.orig	2012-02-07 22:36:35.000000000 +0900
++++ b/libmp3lame/vbrquantize.c	2017-10-14 12:03:44.000000000 +0900
 @@ -26,6 +26,7 @@
  #  include <config.h>
  #endif

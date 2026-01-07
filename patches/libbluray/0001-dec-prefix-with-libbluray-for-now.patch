@@ -160,9 +160,9 @@ index d5e39c49..b52b9812 100644
      }
      if (!disc_id) {
          id_type = 'P';
-@@ -706,7 +706,7 @@ BD_FILE_H *disc_open_stream(BD_DISC *disc, const char *file)
-     }
- 
+@@ -681,7 +681,7 @@ char *disc_property_get(BD_DISC *p, const char *property)
+ static BD_FILE_H *_open_stream(BD_DISC *disc, BD_FILE_H *fp, const char *file)
+ {
      if (disc->dec) {
 -        BD_FILE_H *st = dec_open_stream(disc->dec, fp, atoi(file));
 +        BD_FILE_H *st = libbluray_dec_open_stream(disc->dec, fp, atoi(file));
