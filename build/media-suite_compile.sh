@@ -1055,7 +1055,7 @@ if [[ $standalone = y ]] && enabled libmp3lame; then
         do_patch "$_mingw_patches_lame/0007-revert-posix-code.patch"
         do_patch "$_mingw_patches_lame/0008-skip-termcap.patch"
         do_patch "https://raw.githubusercontent.com/m-ab-s/mabs-patches/master/lame/0001-libmp3lame-vector-Makefile.am-Add-msse-to-fix-i686-c.patch"
-        do_patch "https://tmkk.undo.jp/lame/lame-3.100-sse-20171014.diff"
+        do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/lame/lame-3.100-sse-20171014.patch"
         do_autoreconf
         do_separate_conf --enable-nasm
         do_make
@@ -1315,6 +1315,7 @@ if { [[ $aom = y ]] || [[ $libavif = y ]] || { [[ $ffmpeg != no ]] && enabled li
     do_vcs "$SOURCE_REPO_LIBAOM"; then
     do_pacman_install yasm
     do_patch "https://raw.githubusercontent.com/m-ab-s/mabs-patches/master/aom/0001-CMake-Add-ENABLE_EXTRA_EXAMPLES.patch" am
+    do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/aom/0001-Fall-back-to-built-in-vmaf-model-on-load-failure.patch"
     extracommands=("-DENABLE_EXTRA_EXAMPLES=off")
     if [[ $aom = y || $standalone = y || $av1an = y ]]; then
         # fix google's shit
@@ -1507,12 +1508,12 @@ if { [[ $ffmpeg != no ]] && enabled libbluray; } || ! mpv_disabled libbluray; th
         do_checkIfExist
     fi
 fi
-
+https://github.com/Lichtenshtein/media-autobuild_suite/actions/runs/20763787178/job/59625103055
 _check=(libbluray.{a,pc})
 if { { [[ $ffmpeg != no ]] && enabled libbluray; } || ! mpv_disabled libbluray; } &&
     do_vcs "$SOURCE_REPO_LIBBLURAY"; then
     [[ -f contrib/libudfread/.git ]] || do_git_submodule
-    do_patch "https://raw.githubusercontent.com/m-ab-s/mabs-patches/master/libbluray/0001-dec-prefix-with-libbluray-for-now.patch" am
+    do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/libbluray/0001-dec-prefix-with-libbluray-for-now.patch" am
     do_uninstall include/libbluray share/java "${_check[@]}" libbluray.la
     sed -i 's|__declspec(dllexport)||g' jni/win32/jni_md.h
     extracommands=()
@@ -2575,6 +2576,50 @@ if [[ $ffmpeg != no ]]; then
 
         # static
         if [[ ! $ffmpeg =~ shared ]] && _check=(libavutil.{a,pc}); then
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0001-use-CreateMutexEx-instead-of-CreateMutex-to-fix-win8.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0002-mmal-enable-0-copy-for-egl-interop.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0003-configure-fix-mmal-probing-in-cross-build.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0004-videotoolbox-check-runtime-availability.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0005-mediacodec-check-whether-cropping-is-set-before-use.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0006-avcodec-add-AV_HWACCEL_FLAG_ALLOW_SOFTWARE.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0007-videotoolbox-allow-software-implementation.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0008-h264-increase-MAX_SLICES-to-64.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0009-mmal-add-vp8-mjpeg-wmv3.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0010-mmal-add-option-copy_frame-to-support-retrieving-sw-.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0011-videotoolbox-remove-opengl-compatibility-attribute.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0012-configure-do-not-filter-libpath-for-msvc.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0013-configure-enable-icf.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0014-configure-suppor-static-build-via-clang-cl.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0015-nvenc-use-runtime-api-version-to-work-with-old-drive.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0016-nvenc-check-runtime-9.1-function-ptrs-before-use.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0017-nvenc-check-sdk-10.0-ptrs-at-runtime.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0018-lavfi-atempo-fix-large-tempo-4-crash-lower-min.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0019-msvc-fix-long-argument-list-error-on-windows.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0020-configure-rewrite-flags-from-pkg-config-for-msvc-in-.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0021-win-enable-windres-for-small-and-msvc.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0022-configure-add-extra-windresflags.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0023-add-h264-max-bit-depth-to-disable-rarely-used-depths.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0024-wolfSSL-new-TLS-backend-patch.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0025-avformat-mpegts-index-only-keyframes-to-ensure-accur.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0026-windows-shared-static-libs-in-one-build.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0027-Revert-avutil-timestamp-change-precision-of-av_ts_ma.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0028-hls-support-segments-pretend-to-be-gif-png.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0029-hwcontext_vaapi-fix-undefined-close-on-windows.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0030-matroskadec-support-S_TEXT-WEBVTT.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0031-avutil-mem_internal-fix-clang-vcrt-build.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0032-add-h265-bit-depths.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0033-nvenc-support-api-version-12.0-api-option.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0034-nvenc-support-all-versions-in-1-build.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0035-hls-allow-playlist-w-o-extension.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0036-apple-fix-build-for-low-target-version.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0100-avfilter-select-Add-option-to-accumulate-MAFD-test.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0101-lavfi-fix-undefined-ff_vk_shader_print-if-vulkan-fil-test.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0102-libvmaf-add-aom_ctc-option-test.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0103-avformat-read-udta-in-track-boxes-test.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0104-avformat-mpegts Passthrough SCTE 35-test.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0105-ffmpeg-8.0-master-test.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0106-mpegts-33bit-test"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0107-add-audio_track_timescale-option-test.patch"
             do_print_progress "Compiling ${bold}static${reset} FFmpeg"
             [[ -f config.mak ]] && log "distclean" make distclean
             if ! disabled_any programs avcodec avformat; then

@@ -3,6 +3,10 @@
 
 # Basic built-in options, can be removed if you delete "--disable-autodetect"
 --disable-autodetect
+--enable-nonfree
+--enable-protocol=file
+--disable-debug
+--enable-swscale
 --enable-amf
 --enable-bzlib
 --enable-cuda
@@ -16,7 +20,6 @@
 --enable-schannel
 --enable-zlib
 --enable-sdl2
-#--disable-sdl2
 --enable-ffnvcodec
 --enable-nvdec
 --enable-cuda-llvm
@@ -31,12 +34,14 @@
 --enable-libx265
 --enable-libdav1d
 --enable-libaom
---disable-debug
 --enable-libfdk-aac
 
 # Zeranoe
 --enable-fontconfig
---enable-gnutls
+--enable-openssl
+#--enable-gnutls
+#--enable-mbedtls
+#--enable-libtls
 --enable-libass
 --enable-libbluray
 --enable-libfreetype
@@ -58,13 +63,7 @@
 --enable-libzimg
 --enable-libshine
 --enable-gpl
-#--enable-openssl
---disable-openssl
-#--enable-libtls
---disable-libtls
 --enable-avisynth
---enable-mbedtls
-#--disable-mbedtls
 --enable-libxvid
 --enable-libopenmpt
 --enable-version3
@@ -73,12 +72,10 @@
 --enable-libgsm
 --enable-libvmaf
 --enable-libsvtav1
-#--disable-libsvtav1
 
 # Full
 --enable-chromaprint
 #--enable-decklink
-# --disable-decklink
 --enable-frei0r
 --enable-libaribb24
 --enable-libbs2b
@@ -86,23 +83,18 @@
 --enable-libcdio
 --enable-libflite
 --enable-libfribidi
-# --disable-libgme
 --enable-libgme
 --enable-libilbc
 --enable-libsvthevc
 --enable-libsvtvp9
 --enable-libkvazaar
-# --disable-libkvazaar
 --enable-libmodplug
 --enable-librist
 --enable-librtmp
 --enable-librubberband
-#--enable-libssh
---disable-libssh
+--enable-libssh
 --enable-libtesseract
-# --disable-libtesseract
 --enable-libxavs
-# --disable-libxavs
 --enable-libzmq
 --enable-libzvbi
 --enable-openal
@@ -113,11 +105,8 @@
 --enable-libglslang
 --enable-vulkan
 --enable-libdavs2
-# --disable-libdavs2
 --enable-libxavs2
-# --disable-libxavs2
 --enable-libuavs3d
-# --disable-libuavs3d
 --enable-libplacebo
 --enable-libjxl
 --enable-libvvenc
@@ -131,11 +120,6 @@
 --enable-cuda-nvcc
 --enable-libnpp
 --enable-libopenh264
-# --disable-libopenh264
-
---enable-nonfree
---enable-protocol=file
---enable-swscale
 
 # Core Audio Toolbox
 --enable-audiotoolbox
