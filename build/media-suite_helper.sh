@@ -1218,8 +1218,12 @@ do_removeOption() {
     basearray="${arrayname}[@]"
     local orig=("${!basearray}")
 
+    # parentheses within a regular expression must be escaped
+    local re="${option//\(/\\\(}"
+    re='^'"${re//\)/\\\)}"'$'
+
     for ((i = 0; i < ${#orig[@]}; i++)); do
-        if [[ ! ${orig[$i]} =~ ^${option}$ ]]; then
+        if [[ ! ${orig[$i]} =~ $re ]]; then
             temp+=("${orig[$i]}")
         fi
     done
