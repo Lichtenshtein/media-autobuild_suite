@@ -33,10 +33,11 @@ jobs:
             m-ab-s
 
       - name: Install nVidia CUDA toolkit
-        uses: Jimver/cuda-toolkit@6c431511cdbaef1174130412c0a245a6c205f883
+        uses: Jimver/cuda-toolkit@b6fc3a9f3f15256d9d94ffe1254f9c5a2565cde6
+#        6c431511cdbaef1174130412c0a245a6c205f883
         with:
           method: 'network'
-          cuda: '11.1.1'
+          cuda: '8.0.61'
 
       - name: Remove CUDA Installer
         run: |

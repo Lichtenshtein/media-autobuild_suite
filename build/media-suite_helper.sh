@@ -952,7 +952,7 @@ do_changeFFmpegConfig() {
 
     # get libs restricted by license
     local config_script=configure
-    [[ $(get_first_subdir) != "ffmpeg-vvc-git" ]] && config_script="$LOCALBUILDDIR/ffmpeg-vvc-git/configure"
+    [[ $(get_first_subdir) != "ffmpeg-git" ]] && config_script="$LOCALBUILDDIR/ffmpeg-git/configure"
     [[ -f $config_script ]] || do_exit_prompt "There's no configure script to retrieve libs from"
     eval "$(sed -n '/EXTERNAL_LIBRARY_GPL_LIST=/,/^"/p' "$config_script" | tr -s '\n' ' ')"
     eval "$(sed -n '/HWACCEL_LIBRARY_NONFREE_LIST=/,/^"/p' "$config_script" | tr -s '\n' ' ')"
