@@ -1508,7 +1508,6 @@ if { [[ $ffmpeg != no ]] && enabled libbluray; } || ! mpv_disabled libbluray; th
         do_checkIfExist
     fi
 fi
-https://github.com/Lichtenshtein/media-autobuild_suite/actions/runs/20763787178/job/59625103055
 _check=(libbluray.{a,pc})
 if { { [[ $ffmpeg != no ]] && enabled libbluray; } || ! mpv_disabled libbluray; } &&
     do_vcs "$SOURCE_REPO_LIBBLURAY"; then
