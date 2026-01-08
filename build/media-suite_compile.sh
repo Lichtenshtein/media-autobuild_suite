@@ -2668,7 +2668,7 @@ if [[ $ffmpeg != no ]]; then
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0101-lavfi-fix-undefined-ff_vk_shader_print-if-vulkan-fil-test.patch"
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0102-libvmaf-add-aom_ctc-option-test.patch"
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0103-avformat-read-udta-in-track-boxes-test.patch"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0104-avformat-mpegts Passthrough SCTE 35-test.patch"
+            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0104-avformat-mpegts-passthrough-SCTE-35-test.patch"
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0105-ffmpeg-8.0-master-test.patch"
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0106-mpegts-33bit-test"
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0107-add-audio_track_timescale-option-test.patch"

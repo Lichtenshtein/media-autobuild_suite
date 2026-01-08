@@ -63,9 +63,9 @@ index 8294fb04e2..8ffea48829 100755
    --disable-sndio          disable sndio support [autodetect]
    --disable-schannel       disable SChannel SSP, needed for TLS support on
 @@ -2013,6 +2015,7 @@ EXTERNAL_LIBRARY_LIST="
+     vapoursynth
      vulkan_static
      whisper
-     libsvtjpegxs
 +    wolfssl
  "
  

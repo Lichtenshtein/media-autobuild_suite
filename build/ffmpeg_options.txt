@@ -125,6 +125,7 @@
 
 # Test
 #--enable-whisper
+#--enable-wolfssl
 --enable-libmpeghdec
 --enable-swscale
 --enable-nonfree
