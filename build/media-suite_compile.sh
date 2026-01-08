@@ -958,8 +958,8 @@ if { [[ $ffmpeg != no ]] && enabled libmpeghdec; } || [[ $mpeghdec = y ]]; then
     _check=(libmpeghdec.a mpeghdec.pc)
     if do_vcs "$SOURCE_REPO_MPEGHDEC"; then
         do_uninstall include/mpeghdec "${_check[@]}"
-	do_patch "$LOCALBUILDDIR/local_patches/mpeghdec_inlines-and-declspec-fixes.patch"
-	do_cmakeinstall -Dmpeghdec_BUILD_{DOC,BINARIES}=false -DCMAKE_INSTALL_DATAROOTDIR="$LOCALDESTDIR/lib"
+    do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/mpeghdec/mpeghdec_inlines-and-declspec-fixes.patch"
+    do_cmakeinstall -Dmpeghdec_BUILD_{DOC,BINARIES}=false -DCMAKE_INSTALL_DATAROOTDIR="$LOCALDESTDIR/lib"
         do_checkIfExist
     fi
 fi
