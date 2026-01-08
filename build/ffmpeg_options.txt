@@ -3,10 +3,7 @@
 
 # Basic built-in options, can be removed if you delete "--disable-autodetect"
 --disable-autodetect
-#--enable-nonfree
---enable-protocol=file
 --disable-debug
---enable-swscale
 --enable-amf
 --enable-bzlib
 --enable-cuda
@@ -113,6 +110,8 @@
 --enable-libvvdec
 --enable-liblc3
 --enable-libsvtjpegxs
+--enable-libxeve
+--enable-libxevd
 
 # Full plus options that add shared dependencies
 --enable-opencl
@@ -124,3 +123,13 @@
 # Core Audio Toolbox
 --enable-audiotoolbox
 
+# Test
+#--enable-whisper
+--enable-swscale
+--enable-nonfree
+--enable-pthreads
+--enable-protocol=file
+--enable-filter=vpp_amf
+--enable-filter=sr_amf
+--h264-max-bit-depth=14
+--h265-bit-depths=8,9,10,12

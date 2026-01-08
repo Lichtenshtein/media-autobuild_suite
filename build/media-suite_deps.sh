@@ -3,7 +3,8 @@
 # Dependency References
 SOURCE_REPO_AMF=https://github.com/GPUOpen-LibrariesAndSDKs/AMF.git
 SOURCE_REPO_ANGLE=https://chromium.googlesource.com/angle/angle
-SOURCE_REPO_ARRIB24=https://github.com/nkoriyama/aribb24.git
+# SOURCE_REPO_ARRIB24=https://github.com/nkoriyama/aribb24.git
+SOURCE_REPO_ARRIB24=https://github.com/jeeb/aribb24.git#branch=pr_fixes
 SOURCE_REPO_AUDIOTOOLBOX=https://github.com/cynagenautes/AudioToolboxWrapper.git
 SOURCE_REPO_AV1AN=https://github.com/rust-av/Av1an.git
 SOURCE_REPO_AVISYNTH=https://github.com/AviSynth/AviSynthPlus.git
@@ -11,7 +12,8 @@ SOURCE_REPO_CODEC2=https://github.com/arancormonk/codec2.git
 SOURCE_REPO_CURL=https://github.com/curl/curl.git
 SOURCE_REPO_CYANRIP=https://github.com/cyanreg/cyanrip.git
 SOURCE_REPO_DAV1D=https://code.videolan.org/videolan/dav1d.git
-SOURCE_REPO_DAVS=https://github.com/pkuvcl/davs2.git
+# SOURCE_REPO_DAVS=https://github.com/pkuvcl/davs2.git
+SOURCE_REPO_DAVS=https://github.com/netony/davs2.git
 SOURCE_REPO_DECKLINK=https://gitlab.com/m-ab-s/decklink-headers.git
 SOURCE_REPO_DLFCN=https://github.com/dlfcn-win32/dlfcn-win32.git
 SOURCE_REPO_DOVI_TOOL=https://github.com/quietvoid/dovi_tool.git
@@ -24,7 +26,8 @@ SOURCE_REPO_FFMBC=https://github.com/bcoudurier/FFmbc.git#branch=ffmbc # no othe
 SOURCE_REPO_FFMS2=https://github.com/FFMS/ffms2.git
 SOURCE_REPO_FFNVCODEC=https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
 SOURCE_REPO_FLAC=https://github.com/xiph/flac.git
-SOURCE_REPO_FLITE=https://github.com/festvox/flite.git
+# SOURCE_REPO_FLITE=https://github.com/festvox/flite.git
+SOURCE_REPO_FLITE=https://github.com/sgscaffidi3/flite.git
 SOURCE_REPO_FONTCONFIG=https://gitlab.freedesktop.org/fontconfig/fontconfig.git#tag=LATEST
 SOURCE_REPO_FREETYPE=https://github.com/freetype/freetype.git#tag=LATEST
 SOURCE_REPO_FREI0R=https://github.com/dyne/frei0r.git
@@ -107,6 +110,7 @@ SOURCE_REPO_SPIRV_TOOLS=https://github.com/KhronosGroup/SPIRV-Tools.git
 SOURCE_REPO_SRT=https://github.com/Haivision/srt.git
 # SOURCE_REPO_SVTAV1=https://gitlab.com/AOMediaCodec/SVT-AV1.git
 SOURCE_REPO_SVTAV1=https://github.com/juliobbv-p/svt-av1-hdr.git
+#SOURCE_REPO_SVTAV1=https://github.com/netony/SVT-AV1.git
 SOURCE_REPO_SVTHEVC=https://github.com/OpenVisualCloud/SVT-HEVC.git
 SOURCE_REPO_SVTVP9=https://github.com/OpenVisualCloud/SVT-VP9.git
 SOURCE_REPO_SVTJXS=https://github.com/OpenVisualCloud/SVT-JPEG-XS.git
