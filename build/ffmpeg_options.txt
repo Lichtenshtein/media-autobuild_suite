@@ -35,8 +35,8 @@
 
 # Zeranoe
 --enable-fontconfig
---enable-openssl
-#--enable-gnutls
+#--enable-openssl
+--enable-gnutls
 #--enable-mbedtls
 #--enable-libtls
 --enable-libass
@@ -72,7 +72,7 @@
 
 # Full
 --enable-chromaprint
-#--enable-decklink
+--enable-decklink
 --enable-frei0r
 --enable-libaribb24
 --enable-libbs2b
@@ -124,14 +124,14 @@
 --enable-audiotoolbox
 
 # Test
+--enable-libmpeghdec
 #--enable-whisper
 #--enable-wolfssl
---enable-libmpeghdec
---enable-swscale
---enable-nonfree
---enable-pthreads
---enable-protocol=file
---enable-filter=vpp_amf
---enable-filter=sr_amf
---h264-max-bit-depth=14
---h265-bit-depths=8,9,10,12
+#--enable-swscale
+#--enable-nonfree
+#--enable-pthreads
+#--enable-protocol=file
+#--enable-filter=vpp_amf
+#--enable-filter=sr_amf
+#--h264-max-bit-depth=14
+#--h265-bit-depths=8,9,10,12
