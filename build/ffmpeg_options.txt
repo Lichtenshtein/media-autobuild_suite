@@ -35,12 +35,12 @@
 # SSL/TLS
 #--enable-openssl
 #--enable-schannel
-#--enable-gnutls
+--enable-gnutls
 #--enable-mbedtls
 #--enable-libtls
 --disable-openssl
 --disable-schannel
---disable-gnutls
+#--disable-gnutls
 --disable-mbedtls
 --disable-libtls
 # From patches
@@ -119,8 +119,8 @@
 --enable-libvvdec
 --enable-liblc3
 --enable-libsvtjpegxs
---enable-libxeve
---enable-libxevd
+#--enable-libxeve
+#--enable-libxevd
 
 # Full plus options that add shared dependencies
 --enable-opencl

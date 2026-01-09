@@ -82,4 +82,5 @@ jobs:
             ./*-dir-tree.txt
             ./*-dir-files.txt
             ./*-d-files.txt
-
+            ./build/logs.zip
+            ./ffmpeg_options.txt
