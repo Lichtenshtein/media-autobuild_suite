@@ -1616,13 +1616,13 @@ log() {
         printf 'CPPFLAGS: %s\nCFLAGS: %s\nCXXFLAGS: %s\nLDFLAGS: %s\n%s %s\n' "$CPPFLAGS" "$CFLAGS" "$CXXFLAGS" "$LDFLAGS" "$_cmd${extra:+ $extra}" "$*" > "ab-suite.$name.log"
         if $dontPrint; then
             $_cmd $extra "$@" >> "ab-suite.$name.log" 2>&1 ||
-                { [[ $extra ]] && $_cmd -j1 "$@" >> "ab-suite.$name.log" 2>&1; }
+                { [[ $extra ]] && $_cmd -j"$cpuCount" "$@" >> "ab-suite.$name.log" 2>&1; }
         else
-            { $_cmd $extra "$@" 2>&1 || { [[ $extra ]] && $_cmd -j1 "$@" 2>&1; } } \
+            { $_cmd $extra "$@" 2>&1 || { [[ $extra ]] && $_cmd -j"$cpuCount" "$@" 2>&1; } } \
                 | tee -a "ab-suite.$name.log"
         fi
     else
-        $_cmd $extra "$@" || { [[ $extra ]] && $_cmd -j1 "$@"; }
+        $_cmd $extra "$@" || { [[ $extra ]] && $_cmd -j"$cpuCount" "$@"; }
     fi
 
     case ${ret:=$?} in
@@ -1728,7 +1728,7 @@ do_make() {
     extra_script pre make
     [[ -f "$(get_first_subdir -f)/do_not_build" ]] &&
         return
-    log "make" make -j$(nproc) "$@"
+    log "make" make "$@" -j"$cpuCount"
     extra_script post make
 }
 

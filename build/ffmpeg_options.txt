@@ -1,7 +1,7 @@
 # Lines starting with this character are ignored
 # To override some options specifically for the shared build, create a ffmpeg_options_shared.txt file.
 
-# Basic built-in options, can be removed if you delete "--disable-autodetect"
+### Basic built-in options, can be removed if you delete "--disable-autodetect"
 --disable-autodetect
 --disable-debug
 --enable-amf
@@ -20,7 +20,7 @@
 --enable-nvdec
 --enable-cuda-llvm
 
-# Common options
+### Common options
 --enable-gmp
 --enable-libmp3lame
 --enable-libopus
@@ -32,108 +32,109 @@
 --enable-libaom
 --enable-libfdk-aac
 
-# SSL/TLS
-#--enable-openssl
+### SSL/TLS
+--enable-openssl
 #--enable-schannel
---enable-gnutls
+#--enable-gnutls
 #--enable-mbedtls
 #--enable-libtls
---disable-openssl
---disable-schannel
-#--disable-gnutls
---disable-mbedtls
---disable-libtls
 # From patches
 #--enable-wolfssl
+#
+#--disable-openssl
+#--disable-schannel
+#--disable-gnutls
+#--disable-mbedtls
+#--disable-libtls
 
-# Zeranoe
-#--enable-fontconfig
-#--enable-libass
-#--enable-libbluray
-#--enable-libfreetype
-#--enable-libharfbuzz
-#--enable-libvpl
-#--enable-libmysofa
-#--enable-libopencore-amrnb
-#--enable-libopencore-amrwb
-#--enable-libopenjpeg
-#--enable-libsnappy
-#--enable-libsoxr
-#--enable-libspeex
-#--enable-libtheora
-#--enable-libtwolame
-#--enable-libvidstab
-#--enable-libvo-amrwbenc
-#--enable-libwebp
-#--enable-libxml2
-#--enable-libzimg
-#--enable-libshine
-#--enable-gpl
-#--enable-avisynth
-#--enable-libxvid
-#--enable-libopenmpt
-#--enable-version3
-#--enable-librav1e
-#--enable-libsrt
-#--enable-libgsm
-#--enable-libvmaf
-#--enable-libsvtav1
+### Zeranoe
+--enable-fontconfig
+--enable-libass
+--enable-libbluray
+--enable-libfreetype
+--enable-libharfbuzz
+--enable-libvpl
+--enable-libmysofa
+--enable-libopencore-amrnb
+--enable-libopencore-amrwb
+--enable-libopenjpeg
+--enable-libsnappy
+--enable-libsoxr
+--enable-libspeex
+--enable-libtheora
+--enable-libtwolame
+--enable-libvidstab
+--enable-libvo-amrwbenc
+--enable-libwebp
+--enable-libxml2
+--enable-libzimg
+--enable-libshine
+--enable-gpl
+--enable-avisynth
+--enable-libxvid
+--enable-libopenmpt
+--enable-version3
+--enable-librav1e
+--enable-libsrt
+--enable-libgsm
+--enable-libvmaf
+--enable-libsvtav1
 
 # Full
-#--enable-chromaprint
-#--enable-decklink
-#--enable-frei0r
-#--enable-libaribb24
-#--enable-libbs2b
-#--enable-libcaca
-#--enable-libcdio
-#--enable-libflite
-#--enable-libfribidi
-#--enable-libgme
-#--enable-libilbc
-#--enable-libsvthevc
-#--enable-libsvtvp9
-#--enable-libkvazaar
-#--enable-libmodplug
-#--enable-librist
-#--enable-librtmp
-#--enable-librubberband
-##--enable-libssh
+--enable-chromaprint
+--enable-decklink
+--enable-frei0r
+--enable-libaribb24
+--enable-libbs2b
+--enable-libcaca
+--enable-libcdio
+--enable-libflite
+--enable-libfribidi
+--enable-libgme
+--enable-libilbc
+--enable-libsvthevc
+--enable-libsvtvp9
+--enable-libkvazaar
+--enable-libmodplug
+--enable-librist
+--enable-librtmp
+--enable-librubberband
+--enable-libssh
 #--disable-libssh
-#--enable-libtesseract
-#--enable-libxavs
-#--enable-libzmq
-#--enable-libzvbi
-#--enable-openal
-#--enable-libcodec2
-#--enable-ladspa
-#--enable-vapoursynth
-#--enable-liblensfun
-#--enable-libglslang
-#--enable-vulkan
-#--enable-libdavs2
-#--enable-libxavs2
-#--enable-libuavs3d
-#--enable-libplacebo
-#--enable-libjxl
-#--enable-libvvenc
-#--enable-libvvdec
-#--enable-liblc3
-#--enable-libsvtjpegxs
-##--enable-libxeve
-##--enable-libxevd
+--enable-libtesseract
+--enable-libxavs
+--enable-libzmq
+--enable-libzvbi
+--enable-openal
+--enable-libcodec2
+--enable-ladspa
+--enable-vapoursynth
+--enable-liblensfun
+--enable-libglslang
+--enable-vulkan
+--enable-libdavs2
+--enable-libxavs2
+--enable-libuavs3d
+--enable-libplacebo
+--enable-libjxl
+--enable-libvvenc
+--enable-libvvdec
+--enable-liblc3
+--enable-libsvtjpegxs
+--enable-libxeve
+--enable-libxevd
 
-# Full plus options that add shared dependencies
-#--enable-opencl
-#--enable-opengl
-#--enable-cuda-nvcc
-#--enable-libnpp
-#--enable-libopenh264
+### Full plus options that add shared dependencies
+--enable-opencl
+--enable-opengl
+--enable-cuda-nvcc
+--enable-libnpp
+--enable-libopenh264
 
-# Core Audio Toolbox
-#--enable-audiotoolbox
+### Core Audio Toolbox
+--enable-audiotoolbox
 
-# Test
+### Test
 --enable-libmpeghdec
 #--enable-whisper
 #--enable-swscale
