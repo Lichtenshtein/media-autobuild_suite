@@ -136,12 +136,14 @@
 
 ### Test
 --enable-libmpeghdec
-#--enable-whisper
-#--enable-swscale
-#--enable-nonfree
+--enable-whisper
+--enable-swscale
+--enable-nonfree
+--enable-w32threads
 #--enable-pthreads
-#--enable-protocol=file
-#--enable-filter=vpp_amf
-#--enable-filter=sr_amf
-#--h264-max-bit-depth=14
-#--h265-bit-depths=8,9,10,12
+--disable-pthreads
+--enable-protocol=file
+--enable-filter=vpp_amf
+--enable-filter=sr_amf
+--h264-max-bit-depth=14
+--h265-bit-depths=8,9,10,12

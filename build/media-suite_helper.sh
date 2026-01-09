@@ -1728,7 +1728,7 @@ do_make() {
     extra_script pre make
     [[ -f "$(get_first_subdir -f)/do_not_build" ]] &&
         return
-    log "make" make "$@" -j"$cpuCount"
+    log "make" make -j"$cpuCount" "$@"
     extra_script post make
 }
 
