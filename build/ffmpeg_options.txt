@@ -33,11 +33,16 @@
 --enable-libfdk-aac
 
 # SSL/TLS
---enable-openssl
+#--enable-openssl
 #--enable-schannel
 #--enable-gnutls
 #--enable-mbedtls
 #--enable-libtls
+--disable-openssl
+--disable-schannel
+--disable-gnutls
+--disable-mbedtls
+--disable-libtls
 # From patches
 #--enable-wolfssl
 
