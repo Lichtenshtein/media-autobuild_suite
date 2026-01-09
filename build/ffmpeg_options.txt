@@ -14,7 +14,6 @@
 --enable-iconv
 --enable-lzma
 --enable-nvenc
---enable-schannel
 --enable-zlib
 --enable-sdl2
 --enable-ffnvcodec
@@ -33,16 +32,17 @@
 --enable-libaom
 --enable-libfdk-aac
 
-# Zeranoe
---enable-fontconfig
+# SSL/TLS
 --enable-openssl
+#--enable-schannel
 #--enable-gnutls
 #--enable-mbedtls
 #--enable-libtls
---disable-libtls 
---disable-gnutls
---disable-mbedtls
---disable-libtls
+# From patches
+#--enable-wolfssl
+
+# Zeranoe
+--enable-fontconfig
 --enable-libass
 --enable-libbluray
 --enable-libfreetype
@@ -130,8 +130,6 @@
 # Test
 --enable-libmpeghdec
 #--enable-whisper
-#--enable-wolfssl
---disable-wolfssl
 #--enable-swscale
 #--enable-nonfree
 #--enable-pthreads
