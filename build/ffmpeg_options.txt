@@ -35,10 +35,14 @@
 
 # Zeranoe
 --enable-fontconfig
-#--enable-openssl
---enable-gnutls
+--enable-openssl
+#--enable-gnutls
 #--enable-mbedtls
 #--enable-libtls
+--disable-libtls 
+--disable-gnutls
+--disable-mbedtls
+--disable-libtls
 --enable-libass
 --enable-libbluray
 --enable-libfreetype
@@ -127,6 +131,7 @@
 --enable-libmpeghdec
 #--enable-whisper
 #--enable-wolfssl
+--disable-wolfssl
 #--enable-swscale
 #--enable-nonfree
 #--enable-pthreads
