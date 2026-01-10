@@ -2410,7 +2410,7 @@ if [[ $ffmpeg != no ]] && enabled whisper &&
     do_pacman_install omp
     extracommands+=(-DGGML_OPENMP=ON)
     sed -i "s|vulkan-1|vulkan|" "$MINGW_PREFIX/share/cmake/Modules/FindVulkan.cmake"
-    extracommands+=(-DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release -DGGML_CUDA=1)
+    extracommands+=(-DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release)
     do_cmakeinstall "${extracommands[@]}"
     mv -f "$LOCALDESTDIR"/lib/ggml.a "$LOCALDESTDIR"/lib/libggml.a
     mv -f "$LOCALDESTDIR"/lib/ggml-base.a "$LOCALDESTDIR"/lib/libggml-base.a
