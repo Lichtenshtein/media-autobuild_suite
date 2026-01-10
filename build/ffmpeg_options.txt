@@ -115,7 +115,7 @@
 #--enable-libdavs2
 #--enable-libxavs2
 #--enable-libuavs3d
-#--enable-libplacebo
+--enable-libplacebo
 #--enable-libjxl
 --enable-libvvenc
 --enable-libvvdec
