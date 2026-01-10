@@ -16,6 +16,6 @@ _pre_configure(){
     # If you want to add something to ffmpeg not within the suite already
     # you will need to install it yourself, either through pacman
     # or compiling from source.
-    FFMPEG_OPTS+=(--enable-swscale --enable-nonfree --enable-w32threads --disable-pthreads --enable-protocol=file --enable-filter=vpp_amf --enable-filter=sr_amf --h264-max-bit-depth=14 --h265-bit-depths=8,9,10,12)
+    FFMPEG_OPTS+=(--enable-swscale --enable-nonfree --enable-pthreads --disable-w32threads --enable-protocol=file --enable-filter=vpp_amf --enable-filter=sr_amf --h264-max-bit-depth=14 --h265-bit-depths=8,9,10,12)
     #
 }

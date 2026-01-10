@@ -136,12 +136,13 @@
 
 ### Test
 --enable-libmpeghdec
-#--enable-whisper
+--enable-whisper
 --enable-swscale
 --enable-nonfree
---enable-w32threads
-#--enable-pthreads
---disable-pthreads
+#--enable-w32threads
+--disable-w32threads
+--enable-pthreads
+#--disable-pthreads
 --enable-protocol=file
 --enable-filter=vpp_amf
 --enable-filter=sr_amf
