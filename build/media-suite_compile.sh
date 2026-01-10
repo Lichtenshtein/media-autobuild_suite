@@ -816,35 +816,6 @@ if [[ $ffmpeg != no ]] && enabled libsvtjpegxs &&
     do_checkIfExist
 fi
 
-_check=(libwhisper.a libggml{,-{base,cpu,vulkan}}.a whisper.{pc,h} ggml{,-{alloc,backend,cpu,vulkan}}.h)
-[[ $standalone = y ]] && _check+=(bin/vad-speech-segments.exe bin/whisper-{bench,cli,server}.exe)
-if [[ $ffmpeg != no ]] && enabled whisper &&
-    do_vcs "$SOURCE_REPO_WHISPER_CPP"; then
-    do_uninstall "${_check[@]}"
-    if [[ $standalone = y ]]; then
-        extracommands=(-DWHISPER_STANDALONE=ON)
-    else
-        extracommands=(-DWHISPER_STANDALONE=OFF)
-    fi
-    do_pacman_install omp
-    extracommands+=(-DGGML_OPENMP=ON)
-    sed -i "s|vulkan-1|vulkan|" "$MINGW_PREFIX/share/cmake/Modules/FindVulkan.cmake"
-    extracommands+=(-DGGML_VULKAN=ON)
-    do_cmakeinstall "${extracommands[@]}"
-    mv -f "$LOCALDESTDIR"/lib/ggml.a "$LOCALDESTDIR"/lib/libggml.a
-    mv -f "$LOCALDESTDIR"/lib/ggml-base.a "$LOCALDESTDIR"/lib/libggml-base.a
-    mv -f "$LOCALDESTDIR"/lib/ggml-cpu.a "$LOCALDESTDIR"/lib/libggml-cpu.a
-    mv -f "$LOCALDESTDIR"/lib/ggml-vulkan.a "$LOCALDESTDIR"/lib/libggml-vulkan.a
-    if [[ $CC =~ clang ]]; then
-        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
-    else
-        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lgomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
-    fi
-    grep_or_sed "Requires.private:" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc "s|Libs:|Requires.private: vulkan\nLibs:|"
-    do_checkIfExist
-    unset extracommands
-fi
-
 if [[ $exitearly = EE3 ]]; then
     do_simple_print -p '\n\t'"${orange}Exit due to env var MABS_EXIT_EARLY set to EE3"
     return
@@ -2347,6 +2318,35 @@ if { { [[ $ffmpeg != no ]] && enabled_any vulkan libplacebo; } ||
     -DBUILD_STATIC_LOADER=ON -DUNIX=OFF
     do_checkIfExist
     unset _wine_mirror _mabs
+fi
+
+_check=(libwhisper.a libggml{,-{base,cpu,vulkan}}.a whisper.{pc,h} ggml{,-{alloc,backend,cpu,vulkan}}.h)
+[[ $standalone = y ]] && _check+=(bin/vad-speech-segments.exe bin/whisper-{bench,cli,server}.exe)
+if [[ $ffmpeg != no ]] && enabled whisper &&
+    do_vcs "$SOURCE_REPO_WHISPER_CPP"; then
+    do_uninstall "${_check[@]}"
+    if [[ $standalone = y ]]; then
+        extracommands=(-DWHISPER_STANDALONE=ON)
+    else
+        extracommands=(-DWHISPER_STANDALONE=OFF)
+    fi
+    do_pacman_install omp
+    extracommands+=(-DGGML_OPENMP=ON)
+    sed -i "s|vulkan-1|vulkan|" "$MINGW_PREFIX/share/cmake/Modules/FindVulkan.cmake"
+    extracommands+=(-DGGML_VULKAN=ON)
+    do_cmakeinstall "${extracommands[@]}"
+    mv -f "$LOCALDESTDIR"/lib/ggml.a "$LOCALDESTDIR"/lib/libggml.a
+    mv -f "$LOCALDESTDIR"/lib/ggml-base.a "$LOCALDESTDIR"/lib/libggml-base.a
+    mv -f "$LOCALDESTDIR"/lib/ggml-cpu.a "$LOCALDESTDIR"/lib/libggml-cpu.a
+    mv -f "$LOCALDESTDIR"/lib/ggml-vulkan.a "$LOCALDESTDIR"/lib/libggml-vulkan.a
+    if [[ $CC =~ clang ]]; then
+        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
+    else
+        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lgomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
+    fi
+    grep_or_sed "Requires.private:" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc "s|Libs:|Requires.private: vulkan\nLibs:|"
+    do_checkIfExist
+    unset extracommands
 fi
 
 if [[ $exitearly = EE5 ]]; then
