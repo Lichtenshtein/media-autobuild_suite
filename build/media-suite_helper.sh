@@ -685,6 +685,7 @@ do_checkIfExist() {
                 '' "Try deleting '$packageDir' and start the script again." \
                 'If you are sure there are no dependencies, <Enter> to continue building.'
             do_prompt "Close this window if you wish to stop building."
+            exit 1
         fi
     fi
 }

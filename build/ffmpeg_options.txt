@@ -132,7 +132,7 @@
 #--enable-libopenh264
 
 ### Core Audio Toolbox
---enable-audiotoolbox
+#--enable-audiotoolbox
 
 ### Test
 #--enable-libmpeghdec

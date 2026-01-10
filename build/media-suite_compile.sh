@@ -2372,35 +2372,6 @@ fi
 file_installed -s shaderc_static.pc &&
     mv "$(file_installed shaderc_static.pc)" "$(file_installed shaderc.pc)"
 
-_check=(libwhisper.a libggml{,-{base,cpu,vulkan}}.a whisper.{pc,h} ggml{,-{alloc,backend,cpu,vulkan}}.h)
-[[ $standalone = y ]] && _check+=(bin/vad-speech-segments.exe bin/whisper-{bench,cli,server}.exe)
-if [[ $ffmpeg != no ]] && enabled whisper &&
-    do_vcs "$SOURCE_REPO_WHISPER_CPP"; then
-    do_uninstall "${_check[@]}"
-    if [[ $standalone = y ]]; then
-        extracommands=(-DWHISPER_STANDALONE=ON)
-    else
-        extracommands=(-DWHISPER_STANDALONE=OFF)
-    fi
-    do_pacman_install omp
-    extracommands+=(-DGGML_OPENMP=ON)
-    sed -i "s|vulkan-1|vulkan|" "$MINGW_PREFIX/share/cmake/Modules/FindVulkan.cmake"
-    extracommands+=(-DGGML_VULKAN=ON -DBUILD_SHARED_LIBS=OFF -DWHISPER_BUILD_TESTS=OFF -DWHISPER_BUILD_EXAMPLES=OFF -DWHISPER_BUILD_SERVER=OFF -DWHISPER_USE_SYSTEM_GGML=OFF -DGGML_CCACHE=OFF -DGGML_OPENCL=ON -DGGML_SSE42=ON -DGGML_AVX=ON -DGGML_F16C=ON -DGGML_AVX2=ON -DGGML_BMI2=ON -DGGML_FMA=ON)
-    do_cmakeinstall "${extracommands[@]}"
-    mv -f "$LOCALDESTDIR"/lib/ggml.a "$LOCALDESTDIR"/lib/libggml.a
-    mv -f "$LOCALDESTDIR"/lib/ggml-base.a "$LOCALDESTDIR"/lib/libggml-base.a
-    mv -f "$LOCALDESTDIR"/lib/ggml-cpu.a "$LOCALDESTDIR"/lib/libggml-cpu.a
-    mv -f "$LOCALDESTDIR"/lib/ggml-vulkan.a "$LOCALDESTDIR"/lib/libggml-vulkan.a
-    if [[ $CC =~ clang ]]; then
-        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lggml-opencl -lomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
-    else
-        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lggml-opencl -lgomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
-    fi
-    grep_or_sed "Requires.private:" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc "s|Libs:|Requires.private: vulkan\nLibs:|"
-    do_checkIfExist
-    unset extracommands
-fi
-
 _check=(libplacebo.{a,pc})
 _deps=(lib{vulkan,shaderc_combined}.a spirv-cross.pc shaderc/shaderc.h)
 if { [[ $mpv != n ]] ||
@@ -2424,6 +2395,35 @@ enabled openssl && hide_libressl
 if enabled libcdio || mpv_enabled cdda; then
     do_pacman_install libcdio-paranoia
     grep -ZlER -- "-R/mingw\S+" "$MINGW_PREFIX"/lib/pkgconfig/* | xargs -r -0 sed -ri 's;-R/mingw\S+;;g'
+fi
+
+_check=(libwhisper.a libggml{,-{base,cpu,vulkan}}.a whisper.{pc,h} ggml{,-{alloc,backend,cpu,vulkan}}.h)
+[[ $standalone = y ]] && _check+=(bin/vad-speech-segments.exe bin/whisper-{bench,cli,server}.exe)
+if [[ $ffmpeg != no ]] && enabled whisper &&
+    do_vcs "$SOURCE_REPO_WHISPER_CPP"; then
+    do_uninstall "${_check[@]}"
+    if [[ $standalone = y ]]; then
+        extracommands=(-DWHISPER_STANDALONE=ON)
+    else
+        extracommands=(-DWHISPER_STANDALONE=OFF)
+    fi
+    do_pacman_install omp
+    extracommands+=(-DGGML_OPENMP=ON)
+    sed -i "s|vulkan-1|vulkan|" "$MINGW_PREFIX/share/cmake/Modules/FindVulkan.cmake"
+    extracommands+=(-DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DGGML_CCACHE=OFF -DGGML_OPENCL=ON -DGGML_SSE42=ON -DGGML_AVX=ON -DGGML_F16C=ON -DGGML_AVX2=ON -DGGML_BMI2=ON -DGGML_FMA=ON)
+    do_cmakeinstall "${extracommands[@]}"
+    mv -f "$LOCALDESTDIR"/lib/ggml.a "$LOCALDESTDIR"/lib/libggml.a
+    mv -f "$LOCALDESTDIR"/lib/ggml-base.a "$LOCALDESTDIR"/lib/libggml-base.a
+    mv -f "$LOCALDESTDIR"/lib/ggml-cpu.a "$LOCALDESTDIR"/lib/libggml-cpu.a
+    mv -f "$LOCALDESTDIR"/lib/ggml-vulkan.a "$LOCALDESTDIR"/lib/libggml-vulkan.a
+    if [[ $CC =~ clang ]]; then
+        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lggml-opencl -lomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
+    else
+        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lggml-opencl -lgomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
+    fi
+    grep_or_sed "Requires.private:" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc "s|Libs:|Requires.private: vulkan\nLibs:|"
+    do_checkIfExist
+    unset extracommands
 fi
 
 if [[ $ffmpeg != no ]]; then
