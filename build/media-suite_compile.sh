@@ -1418,7 +1418,7 @@ if [[ $bits = 32bit ]]; then
 elif { [[ $svtav1 = y ]] || enabled libsvtav1; } &&
     do_vcs "$SOURCE_REPO_SVTAV1"; then
     do_uninstall include/svt-av1 "${_check[@]}" include/svt-av1
-    do_cmakeinstall video -DUNIX=OFF -DBUILD_TESTING=OFF -DBUILD_APPS=OFF -DENABLE_AVX512=ON -DSVT_AV1_LTO=OFF -DCMAKE_CXX_FLAGS_RELEASE="-flto -DNDEBUG -O2" -DCMAKE_C_FLAGS_RELEASE="-flto -DNDEBUG -O2"
+    do_cmakeinstall video -DUNIX=OFF -DBUILD_TESTING=OFF -DENABLE_AVX512=ON -DSVT_AV1_LTO=OFF -DCMAKE_CXX_FLAGS_RELEASE="-flto -DNDEBUG -O2" -DCMAKE_C_FLAGS_RELEASE="-flto -DNDEBUG -O2"
     do_checkIfExist
 fi
 
@@ -2410,7 +2410,7 @@ if [[ $ffmpeg != no ]] && enabled whisper &&
     do_pacman_install omp
     extracommands+=(-DGGML_OPENMP=ON)
     sed -i "s|vulkan-1|vulkan|" "$MINGW_PREFIX/share/cmake/Modules/FindVulkan.cmake"
-    extracommands+=(-DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DGGML_CCACHE=OFF -DGGML_OPENCL=ON -DGGML_SSE42=ON -DGGML_AVX=ON -DGGML_F16C=ON -DGGML_AVX2=ON -DGGML_BMI2=ON -DGGML_FMA=ON -DGGML_CUDA=1)
+    extracommands+=(-DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DGGML_CCACHE=OFF -DGGML_OPENCL=ON -DGGML_SSE42=ON -DGGML_AVX=ON -DGGML_F16C=ON -DGGML_AVX2=ON -DGGML_BMI2=ON -DGGML_FMA=ON)
     do_cmakeinstall "${extracommands[@]}"
     mv -f "$LOCALDESTDIR"/lib/ggml.a "$LOCALDESTDIR"/lib/libggml.a
     mv -f "$LOCALDESTDIR"/lib/ggml-base.a "$LOCALDESTDIR"/lib/libggml-base.a
