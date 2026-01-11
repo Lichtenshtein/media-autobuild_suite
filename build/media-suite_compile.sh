@@ -1291,7 +1291,7 @@ if { enabled libvpx || [[ $vpx = y ]]; } && do_vcs "$SOURCE_REPO_VPX" vpx; then
     extracommands=()
     [[ -f config.mk ]] && log "distclean" make distclean
     [[ $standalone = y || $av1an = y ]] && _check+=(bin-video/vpxdec.exe) ||
-        extracommands+=(--disable-{examples,webm-io,libyuv,postproc})
+        extracommands+=(--disable-{examples,webm-io,libyuv,postproc,docs,tools,unit-tests} --enable-vp9-highbitdepth)
     do_uninstall include/vpx "${_check[@]}"
     # Work around for semaphore.h not having struct _timespec64 info
     grep_or_sed sys/timeb.h vp8/common/threading.h \
@@ -1320,7 +1320,7 @@ if [[ $ffmpeg != no ]] && enabled libvmaf &&
     do_pacman_install -m vim # for built_in_models
     cd_safe libvmaf
     CFLAGS="-msse2 -mfpmath=sse -mstackrealign $CFLAGS" do_mesoninstall video \
-        -Denable_float=true -Dbuilt_in_models=true -Denable_tests=false
+        -Denable_float=true -Dbuilt_in_models=true -Denable_tests=false -Denable_docs=false -Denable_avx512=true
     do_checkIfExist
 fi
 file_installed -s libvmaf.dll.a && rm "$(file_installed libvmaf.dll.a)"
@@ -1338,7 +1338,7 @@ if { [[ $aom = y ]] || [[ $libavif = y ]] || { [[ $ffmpeg != no ]] && enabled li
         sed -ri 's;_PREFIX.+CMAKE_INSTALL_BINDIR;_FULL_BINDIR;' \
             build/cmake/aom_install.cmake
     else
-        extracommands+=("-DENABLE_EXAMPLES=off")
+        extracommands+=("-DENABLE_EXAMPLES=NO -DENABLE_TESTS=NO -DENABLE_TOOLS=NO -DCONFIG_TUNE_VMAF=1")
     fi
     do_uninstall include/aom "${_check[@]}"
     get_external_opts extracommands
@@ -1418,7 +1418,7 @@ if [[ $bits = 32bit ]]; then
 elif { [[ $svtav1 = y ]] || enabled libsvtav1; } &&
     do_vcs "$SOURCE_REPO_SVTAV1"; then
     do_uninstall include/svt-av1 "${_check[@]}" include/svt-av1
-    do_cmakeinstall video -DUNIX=OFF -DENABLE_AVX512=ON
+    do_cmakeinstall video -DUNIX=OFF -DBUILD_TESTING=OFF -DBUILD_APPS=OFF -DENABLE_AVX512=ON -DSVT_AV1_LTO=OFF -DCMAKE_CXX_FLAGS_RELEASE="-flto -DNDEBUG -O2" -DCMAKE_C_FLAGS_RELEASE="-flto -DNDEBUG -O2"
     do_checkIfExist
 fi
 
@@ -1531,7 +1531,7 @@ if { { [[ $ffmpeg != no ]] && enabled libbluray; } || ! mpv_disabled libbluray; 
     do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/libbluray/0001-dec-prefix-with-libbluray-for-now.patch" am
     do_uninstall include/libbluray share/java "${_check[@]}" libbluray.la
     sed -i 's|__declspec(dllexport)||g' jni/win32/jni_md.h
-    extracommands=()
+    extracommands=(-Denable_docs=false -Denable_tools=false -Denable_devtools=false -Denable_examples=false -Dfontconfig=enabled -Dfreetype=enabled)
     log javahome get_java_home
     OLD_PATH=$PATH
     if [[ -n $JAVA_HOME ]]; then
@@ -2382,7 +2382,7 @@ if { [[ $mpv != n ]] ||
     do_patch "https://raw.githubusercontent.com/m-ab-s/mabs-patches/master/libplacebo/0002-spirv-cross-use-spirv-cross-instead-of-c-shared.patch" am
     do_pacman_install python-{mako,setuptools}
     do_uninstall "${_check[@]}"
-    do_mesoninstall -Dvulkan-registry="$LOCALDESTDIR/share/vulkan/registry/vk.xml" -Ddemos=false -Dd3d11=enabled
+    do_mesoninstall -Dvulkan-registry="$LOCALDESTDIR/share/vulkan/registry/vk.xml" -Ddemos=false -Dd3d11=enabled -Dfuzz=false -Dbench=false -Dtests=false -Dshaderc=enabled -Dvulkan=enabled -Dvk-proc-addr=disabled
     do_checkIfExist
 fi
 
@@ -2436,7 +2436,7 @@ if [[ $ffmpeg != no ]]; then
     fi
     if enabled libssh; then
         do_pacman_install libssh
-        do_addOption --extra-cflags=-DLIBSSH_STATIC "--extra-ldflags=-Wl,--allow-multiple-definition"
+        do_addOption --extra-cflags=-DLIBSSH_STATIC -DWITH_EXAMPLES=OFF -DWITH_SERVER=OFF -DWITH_SFTP=ON -DWITH_ZLIB=ON "--extra-ldflags=-Wl,--allow-multiple-definition"
         grep_or_sed "Requires.private" "$MINGW_PREFIX"/lib/pkgconfig/libssh.pc \
             "/Libs:/ i\Requires.private: zlib libssl"
     fi
@@ -2484,7 +2484,7 @@ if [[ $ffmpeg != no ]]; then
             do_pacman_install zeromq
             grep_or_sed ws2_32 "$MINGW_PREFIX"/lib/pkgconfig/libzmq.pc \
                 's/-lpthread/& -lws2_32/'
-            do_addOption --extra-cflags=-DZMQ_STATIC
+            do_addOption -DBUILD_TESTS=OFF -DENABLE_INTRINSICS=ON -DENABLE_DRAFTS=OFF -DWITH_DOCS=OFF -DENABLE_CPACK=OFF -DENABLE_NO_EXPORT=ON --extra-cflags=-DZMQ_STATIC -DZMQ_NO_EXPORT
         else
             do_removeOption --enable-libzmq
             do_simple_print "${orange}libzmq is not available for 32-bit, disabling${reset}"
