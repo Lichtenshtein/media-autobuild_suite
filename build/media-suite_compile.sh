@@ -2538,7 +2538,6 @@ if [[ $ffmpeg != no ]]; then
             do_patch "https://raw.githubusercontent.com/OpenVisualCloud/SVT-VP9/master/ffmpeg_plugin/master-0001-Add-ability-for-ffmpeg-to-run-svt-vp9.patch" am ||
                 do_removeOption --enable-libsvtvp9
         fi
-        do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0099-fix-dshow-requested-variables.patch" am ||
         enabled libsvthevc || do_removeOption FFMPEG_OPTS_SHARED "--enable-libsvthevc"
         enabled libsvtav1 || do_removeOption FFMPEG_OPTS_SHARED "--enable-libsvtav1"
         enabled libsvtvp9 || do_removeOption FFMPEG_OPTS_SHARED "--enable-libsvtvp9"
@@ -2664,14 +2663,6 @@ if [[ $ffmpeg != no ]]; then
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0034-nvenc-support-all-versions-in-1-build.patch"
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0035-hls-allow-playlist-w-o-extension.patch"
             do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0036-apple-fix-build-for-low-target-version.patch"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0100-avfilter-select-Add-option-to-accumulate-MAFD-test.patch"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0101-lavfi-fix-undefined-ff_vk_shader_print-if-vulkan-fil-test.patch"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0102-libvmaf-add-aom_ctc-option-test.patch"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0103-avformat-read-udta-in-track-boxes-test.patch"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0104-avformat-mpegts-passthrough-SCTE-35-test.patch"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0105-ffmpeg-8.0-master-test.patch"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0106-mpegts-33bit-test"
-            do_patch "https://raw.githubusercontent.com/Lichtenshtein/media-autobuild_suite/master/patches/ffmpeg/0107-add-audio_track_timescale-option-test.patch"
             do_print_progress "Compiling ${bold}static${reset} FFmpeg"
             [[ -f config.mak ]] && log "distclean" make distclean
             if ! disabled_any programs avcodec avformat; then
