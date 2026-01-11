@@ -2410,7 +2410,7 @@ if [[ $ffmpeg != no ]] && enabled whisper &&
     do_pacman_install omp
     extracommands+=(-DGGML_OPENMP=ON)
     sed -i "s|vulkan-1|vulkan|" "$MINGW_PREFIX/share/cmake/Modules/FindVulkan.cmake"
-    extracommands+=(-DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release)
+    extracommands+=(-DGGML_VULKAN=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DGGML_CCACHE=OFF -DGGML_OPENCL=ON -DGGML_SSE42=ON -DGGML_AVX=ON -DGGML_F16C=ON -DGGML_AVX2=ON -DGGML_BMI2=ON -DGGML_FMA=ON -DGGML_CUDA=1)
     do_cmakeinstall "${extracommands[@]}"
     mv -f "$LOCALDESTDIR"/lib/ggml.a "$LOCALDESTDIR"/lib/libggml.a
     mv -f "$LOCALDESTDIR"/lib/ggml-base.a "$LOCALDESTDIR"/lib/libggml-base.a
@@ -2419,7 +2419,7 @@ if [[ $ffmpeg != no ]] && enabled whisper &&
     if [[ $CC =~ clang ]]; then
         sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lggml-opencl -lomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
     else
-        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lgomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
+        sed -i "s|-lggml  -lggml-base -lwhisper|-lwhisper -lggml -lggml-vulkan -lggml-cpu -lggml-base -lggml-opencl -lgomp|" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc
     fi
     grep_or_sed "Requires.private:" "$LOCALDESTDIR"/lib/pkgconfig/whisper.pc "s|Libs:|Requires.private: vulkan\nLibs:|"
     do_checkIfExist
