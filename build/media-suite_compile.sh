@@ -1418,7 +1418,7 @@ if [[ $bits = 32bit ]]; then
 elif { [[ $svtav1 = y ]] || enabled libsvtav1; } &&
     do_vcs "$SOURCE_REPO_SVTAV1"; then
     do_uninstall include/svt-av1 "${_check[@]}" include/svt-av1
-    do_cmakeinstall video -DUNIX=OFF -DBUILD_TESTING=OFF -DENABLE_AVX512=ON -DSVT_AV1_LTO=OFF -DCMAKE_CXX_FLAGS_RELEASE="-flto -DNDEBUG -O2" -DCMAKE_C_FLAGS_RELEASE="-flto -DNDEBUG -O2"
+    do_cmakeinstall video -DUNIX=OFF -DBUILD_TESTING=OFF -DENABLE_AVX512=ON -DSVT_AV1_LTO=OFF -DCMAKE_CXX_FLAGS_RELEASE="-DNDEBUG -O2" -DCMAKE_C_FLAGS_RELEASE="-DNDEBUG -O2"
     do_checkIfExist
 fi
 
