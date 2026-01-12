@@ -2484,7 +2484,7 @@ if [[ $ffmpeg != no ]]; then
             do_pacman_install zeromq
             grep_or_sed ws2_32 "$MINGW_PREFIX"/lib/pkgconfig/libzmq.pc \
                 's/-lpthread/& -lws2_32/'
-            do_addOption --disable-perf --disable-Werror --disable-curve-keygen --with-tls --extra-cflags=-O2 -DZMQ_STATIC
+            do_addOption --extra-cflags=-DZMQ_STATIC
         else
             do_removeOption --enable-libzmq
             do_simple_print "${orange}libzmq is not available for 32-bit, disabling${reset}"
