@@ -2155,23 +2155,23 @@ clean_suite() {
     find . -maxdepth 2 -name recently_updated -delete
     find . -maxdepth 2 -regex ".*build_successful\(MINGW\|CLANG\|UCRT\)\(32\|64\)\(_\\w+\)?\$" -delete
     echo -e "\\n\\t${green}Zipping man files...${reset}"
-    do_zipman
+    do_zipman || true
 
     if [[ $deleteSource == y ]]; then
         echo -e "\\t${orange}Deleting temporary build dirs...${reset}"
         find . -maxdepth 5 -name "ab-suite.*.log" -delete
-        find . -maxdepth 5 -type d -name "build-*$MSYSTEM" -exec rm -rf {} +
-        find . -maxdepth 2 -type d -name "build" -exec test -f "{}/CMakeCache.txt" ';' -exec rm -rf {} ';'
-        find . -maxdepth 3 -type f -name "Cargo.toml" -execdir cargo clean -q ";"
+        find . -maxdepth 5 -type d -name "build-*$MSYSTEM" -exec rm -rf {} + 2>/dev/null || true
+        find . -maxdepth 2 -type d -name "build" -exec test -f "{}/CMakeCache.txt" ';' -exec rm -rf {} ';' 2>/dev/null || true
+        find . -maxdepth 3 -type f -name "Cargo.toml" -execdir cargo clean -q ";" 2>/dev/null || true
 
         if [[ -f _to_remove ]]; then
             echo -e "\\n\\t${orange}Deleting source folders...${reset}"
             grep -E "^($LOCALBUILDDIR|/trunk$LOCALBUILDDIR)" < _to_remove |
-                grep -Ev "^$LOCALBUILDDIR/(patches|extras|$)" | sort -u | xargs -r rm -rf
+                grep -Ev "^$LOCALBUILDDIR/(patches|extras|$)" | sort -u | xargs -r rm -rf 2>/dev/null || true
         fi
-        if [[ $(du -s /var/cache/pacman/pkg/ | cut -f1) -gt 1000000 ]]; then
+        if [[ $(du -s /var/cache/pacman/pkg/ 2>/dev/null | cut -f1) -gt 1000000 ]]; then
             echo -e "\\t${orange}Deleting unneeded Pacman packages...${reset}"
-            pacman -Sc --noconfirm
+            pacman -Sc --noconfirm || true
         fi
     fi
 
@@ -2181,6 +2181,7 @@ clean_suite() {
     [[ -f last_run ]] && mv last_run last_successful_run && touch last_successful_run
     [[ -f CHANGELOG.txt ]] && cat CHANGELOG.txt >> newchangelog
     unix2dos -n newchangelog CHANGELOG.txt 2> /dev/null && rm -f newchangelog
+    return 0
 }
 
 create_diagnostic() (
